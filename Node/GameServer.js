@@ -8,7 +8,7 @@ app.use(express.json());
 const pool = mysql.createPool({
     host : 'localhost',
     user : 'root',
-    password : 'shingu',
+    password : 'ghfhfh153',
     database : 'game_world'
 });
 
@@ -19,7 +19,7 @@ app.post('/login', async (req, res) => {
     try
     {
         const [players] = await pool.query(
-            'SELECT * FROM players WHERE username = ? AND password_hash = ?',
+            `SELECT * FROM players WHERE username = ? AND password_hash = ?`,
             [username, password_hash]
         );
 
@@ -48,7 +48,7 @@ app.get('/inventory/:playerId', async (req, res) => {
     try
     {
         const[inventory] = await pool.query(
-            'SELECT i.* inv.quantity FROM inventories inv JOIN items i ON inv.item_id = i.item_id WHERE inv.player_id = ?',
+            'SELECT i.* , inv.quantity FROM inventories inv JOIN items i ON inv.item_id = i.item_id WHERE inv.player_id = ?',
             [req.params.playerId]
         );
         res.json(inventory);
